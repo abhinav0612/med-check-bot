@@ -1,8 +1,8 @@
-import constants as Constants
+import utils.constants as Constants
 
 import requests
 
-from logger import get_logger
+from utils.logger import get_logger
 
 error_logger = get_logger('error_logger')
 

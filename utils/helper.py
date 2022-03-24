@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from telegram import send_message, get_updates
-from db import SqliteConnection
+from utils.telegram import send_message, get_updates
+from utils.db import SqliteConnection
 from utils.telegram import send_daily_report_message
-from logger import get_logger
+from utils.logger import get_logger
 
 
 error_logger = get_logger('error_logger')
