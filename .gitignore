@@ -1,0 +1,6 @@
+# Virtual Env
+/env
+
+# DB File
+
+*.sqlite
