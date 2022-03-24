@@ -10,7 +10,7 @@ error_logger = get_logger('error_logger')
 if __name__ == '__main__':
 
     try:
-        scheduler = BackgroundScheduler()
+        scheduler = BackgroundScheduler(timezone="Asia/Kolkata")
         
         # Schedule jobs
         scheduler.add_job(func=ask_meal, args=['breakfast'], trigger='cron', hour='12')
