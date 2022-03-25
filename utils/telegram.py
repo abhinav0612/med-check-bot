@@ -29,7 +29,7 @@ def send_message(message):
             }
         }
 
-        resp = requests.post(url=url, headers=headers, data=payload)
+        resp = requests.post(url=url, headers=headers, json=payload)
         if resp.status_code == 200:
             return resp.json()['result']['message_id']
         else:
@@ -48,7 +48,7 @@ def send_daily_report_message(message):
             "text": message
         }
 
-        resp = requests.post(url=url, headers=headers, data=payload)
+        resp = requests.post(url=url, headers=headers, json=payload)
         if resp.status_code == 200:
             return resp.json()['result']['message_id']
         else:
@@ -68,7 +68,7 @@ def get_updates(offset):
             "offset": offset
         }
 
-        resp = requests.post(url=url, headers=headers, data=payload)
+        resp = requests.post(url=url, headers=headers, json=payload)
         if resp.status_code == 200:
             return resp.json()['result']
         else:
