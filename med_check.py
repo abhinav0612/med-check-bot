@@ -3,14 +3,14 @@ import atexit
 from utils.helper import ask_meal, ask_syrup, ask_medicine, store_data
 from utils.logger import get_logger
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.background import BlockingScheduler
 
 error_logger = get_logger('error_logger')
 
 if __name__ == '__main__':
 
     try:
-        scheduler = BackgroundScheduler(timezone="Asia/Kolkata")
+        scheduler = BlockingScheduler(timezone="Asia/Kolkata")
         
         # Schedule jobs
         scheduler.add_job(func=ask_meal, args=['breakfast'], trigger='cron', hour='12')
