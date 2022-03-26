@@ -31,7 +31,7 @@ def send_message(message):
 
         resp = requests.post(url=url, headers=headers, json=payload)
         if resp.status_code == 200:
-            return resp.json()['result']['message_id']
+            return str(resp.json()['result']['message_id'])
         else:
             error_logger.error(f'Error occured while running send_message!!!')
             return None
@@ -50,7 +50,7 @@ def send_daily_report_message(message):
 
         resp = requests.post(url=url, headers=headers, json=payload)
         if resp.status_code == 200:
-            return resp.json()['result']['message_id']
+            return str(resp.json()['result']['message_id'])
         else:
             error_logger.error(f'Error occured while running send_daily_report_message!!!')
             # TODO
@@ -62,7 +62,7 @@ def send_daily_report_message(message):
 
 def get_updates(offset):
     try:
-        url = '/'.join([Constants.BASE_URL, Constants.API_TOKEN, 'sendMessage'])
+        url = '/'.join([Constants.BASE_URL, Constants.API_TOKEN, 'getUpdates'])
         headers = {'Content-Type': 'application/json'}
         payload = {
             "offset": offset

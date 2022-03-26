@@ -86,8 +86,10 @@ def store_data():
         keys = ['breakfast', 'lunch', 'dinner', 'syrup_1', 'syrup_2', 'iron', 'vitamin', 'regular']
         data = {}
         offset = get_last_offset()
+        print(offset)
         results = get_updates(offset)
         message_id_mapping = get_message_ids()
+        print(message_id_mapping)
 
         for item in results:
             message_details = item.get('message')
@@ -96,7 +98,8 @@ def store_data():
                 source_message_details = message_details.get('reply_to_message')
                 if source_message_details:
                     source_message_id = str(source_message_details['message_id'])
-                    data[message_id_mapping[source_message_id]] = text
+                    if source_message_id in message_id_mapping:
+                        data[message_id_mapping[source_message_id]] = text
         ordered_data = []
         for key in keys:
             ordered_data.append(data.get(key, 'Unknown'))
