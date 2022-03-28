@@ -13,7 +13,7 @@ def get_logger(logger_name, logging_level):
             logger = logging.getLogger('bot_logger')
             
             if logging_level == logging.INFO:
-                file_handler = logging.FileHandler(os.environ.get('LOG_PATH', 'info.log'))
+                file_handler = logging.FileHandler('info.log')
             else:
                 file_handler = logging.FileHandler(os.environ.get('LOG_PATH', 'error.log'))
 
