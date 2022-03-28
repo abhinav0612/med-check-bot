@@ -3,7 +3,7 @@ import logging
 
 loggers = {}
 
-def get_logger(logger_name, logging_level):
+def get_logger(logger_name, logging_level=logging.ERROR):
     try:
         global loggers
 
