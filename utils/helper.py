@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from utils.telegram import send_message, get_updates
@@ -6,7 +7,8 @@ from utils.telegram import send_daily_report_message
 from utils.logger import get_logger
 
 
-error_logger = get_logger('error_logger')
+error_logger = get_logger('error_logger', logging.ERROR)
+info_logger = get_logger('info_logger', logging.INFO)
 
 
 def get_update_query(table, id, key, value):
@@ -58,6 +60,14 @@ def get_last_offset():
     except Exception as e:
         error_logger.exception(f'Exception occured while running get_last_offset!!!')
 
+def update_last_offset(offset):
+    try:
+        query = f'UPDATE offset SET offset = {str(offset)}'
+        sqlite_client = SqliteConnection()
+        results = sqlite_client.update_record(query)
+    except Exception as e:
+        error_logger.exception(f'Exception occured while running get_last_offset!!!')
+
 
 def get_message_ids():
     try:
@@ -86,13 +96,16 @@ def store_data():
         keys = ['breakfast', 'lunch', 'dinner', 'syrup_1', 'syrup_2', 'iron', 'vitamin', 'regular']
         data = {}
         offset = get_last_offset()
-        print(offset)
+        last_offset = None
+        info_logger.info(offset)
         results = get_updates(offset)
+        info_logger.info(results)
         message_id_mapping = get_message_ids()
-        print(message_id_mapping)
+        info_logger.info(message_id_mapping)
 
         for item in results:
             message_details = item.get('message')
+            last_offset = item.get('update_id', offset)
             if message_details:
                 text = message_details.get('text', 'Unknown')
                 source_message_details = message_details.get('reply_to_message')
@@ -109,6 +122,8 @@ def store_data():
         sqlite_client = SqliteConnection()
         sqlite_client.insert_record(query, ordered_data)
         send_analysis_data(data)
+        update_last_offset(last_offset)
+        info_logger.info(last_offset)
     except Exception as e:
         error_logger.exception(f'Exception occured while running store_data!!!')
 
