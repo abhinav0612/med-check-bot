@@ -17,13 +17,13 @@ if __name__ == '__main__':
         scheduler.add_job(func=ask_meal, args=['lunch'], trigger='cron', hour='16')
         scheduler.add_job(func=ask_meal, args=['dinner'], trigger='cron', hour='22')
 
-        scheduler.add_job(func=ask_syrup, args=['syrup_1'], trigger='cron', hour='17', minute='5')
+        scheduler.add_job(func=ask_syrup, args=['syrup_1'], trigger='cron', hour='15', minute='30')
         scheduler.add_job(func=ask_syrup, args=['syrup_2'], trigger='cron', hour='22', minute='5')
 
         scheduler.add_job(func=ask_medicine, args=['Iron'], trigger='cron', hour='14')
-        scheduler.add_job(func=ask_medicine, args=['Vitamin D'], trigger='cron', hour='22', minute='10')
+        scheduler.add_job(func=ask_medicine, args=['Vitamin D'], trigger='cron', hour='22', minute='10', day_of_week='6')
 
-        scheduler.add_job(func=ask_medicine, args=['treatment'], trigger='cron', hour='12', minute='15')
+        scheduler.add_job(func=ask_medicine, args=['regular'], trigger='cron', hour='12', minute='50')
 
         scheduler.add_job(func=store_data, trigger='cron', hour='22', minute='45')
 

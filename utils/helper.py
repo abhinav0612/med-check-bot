@@ -3,7 +3,7 @@ from datetime import datetime
 
 from utils.telegram import send_message, get_updates
 from utils.db import SqliteConnection
-from utils.telegram import send_daily_report_message
+from utils.telegram import send_daily_report_message, send_sticker
 from utils.logger import get_logger
 
 
@@ -123,6 +123,7 @@ def store_data():
         sqlite_client.insert_record(query, ordered_data)
         send_analysis_data(data)
         update_last_offset(last_offset)
+        send_sticker()
         info_logger.info(last_offset)
     except Exception as e:
         error_logger.exception(f'Exception occured while running store_data!!!')

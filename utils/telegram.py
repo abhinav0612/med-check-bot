@@ -59,6 +59,24 @@ def send_daily_report_message(message):
         error_logger.exception(f'Exception occured while running send_daily_report_message!!!')
 
 
+def send_sticker():
+    try:
+        url = '/'.join([Constants.BASE_URL, Constants.API_TOKEN, 'sendAnimation'])
+        headers = {'Content-Type': 'application/json'}
+        payload = {
+            "chat_id": Constants.CHAT_ID,
+            "animation": "CgACAgQAAxkBAAMPYjoNTEO057HQQjUClEBLqKYyozsAAiMCAAKx4G1TUkXh2aOdY5sjBA"
+        }
+
+        resp = requests.post(url=url, headers=headers, json=payload)
+        if resp.status_code == 200:
+            return str(resp.json()['result']['message_id'])
+        else:
+            error_logger.error(f'Error occured while running send_sticker!!!')
+            # TODO
+            return None
+    except Exception as e:
+        error_logger.exception(f'Exception occured while running send_sticker!!!')
 
 def get_updates(offset):
     try:
